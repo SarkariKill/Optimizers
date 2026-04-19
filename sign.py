@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 import json
 from streamlit_lottie import st_lottie
 
+# ---- SAFE CV2 IMPORT ----
+try:
+    import cv2
+    camera_available = True
+except:
+    camera_available = False
+
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
         return json.load(f)
