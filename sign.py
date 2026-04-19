@@ -272,50 +272,56 @@ else:
 
         st.markdown("### Recording live metal deformation (40 seconds)")
 
-        start = st.button("▶️ Start Recording")
-
-        if start:
-            cap = cv2.VideoCapture(0)
-
-            stframe = st.empty()
-
-            start_time = time.time()
-            duration = 40  # seconds
-
-            while True:
-                ret, frame = cap.read()
-
-                if not ret:
-                    st.error("Camera not working")
-                    break
-
-                # Convert BGR to RGB
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-                # Display frame
-                stframe.image(frame, channels="RGB")
-
-                # Stop after duration
-                if time.time() - start_time > duration:
-                    break
-
-            cap.release()
-
-            st.success("✅ Recording Complete")
-
-            # ---- SIMULATED SPRINGBACK RESULT ----
-            springback = round(random.uniform(2, 10), 2)
-
-            st.markdown("## 📊 Springback Analysis")
-
-            st.metric("📉 Springback Effect", f"{springback}°")
-
-            if springback < 3:
-                st.success("Springback within limits")
-            elif springback < 7:
-                st.warning("Moderate springback detected")
-            else:
-                st.error("High springback - correction needed")
+        # ---- CHECK CAMERA AVAILABILITY ----
+        if not camera_available:
+            st.warning("📷 Live camera is not supported in cloud deployment.")
+            st.info("👉 Please run this app locally to use the camera feature.")
+    
+        else:
+            start = st.button("▶️ Start Recording")
+    
+            if start:
+                cap = cv2.VideoCapture(0)
+    
+                stframe = st.empty()
+    
+                start_time = time.time()
+                duration = 40  # seconds
+    
+                while True:
+                    ret, frame = cap.read()
+    
+                    if not ret:
+                        st.error("Camera not working")
+                        break
+    
+                    # Convert BGR to RGB
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    
+                    # Display frame
+                    stframe.image(frame, channels="RGB")
+    
+                    # Stop after duration
+                    if time.time() - start_time > duration:
+                        break
+    
+                cap.release()
+    
+                st.success("✅ Recording Complete")
+    
+                # ---- SIMULATED SPRINGBACK RESULT ----
+                springback = round(random.uniform(2, 10), 2)
+    
+                st.markdown("## 📊 Springback Analysis")
+    
+                st.metric("📉 Springback Effect", f"{springback}°")
+    
+                if springback < 3:
+                    st.success("Springback within limits")
+                elif springback < 7:
+                    st.warning("Moderate springback detected")
+                else:
+                    st.error("High springback - correction needed")
     
     elif page == "Analytics Dashboard":
         # ---- LOAD LOTTIE ----
