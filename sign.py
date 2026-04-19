@@ -330,11 +330,6 @@ else:
                     st.error("High springback - correction needed")
     
     elif page == "Analytics Dashboard":
-        # ---- CENTERED ANIMATION ----
-        col1, col2, col3 = st.columns([1, 3, 1])
-        with col2:
-            st_lottie(lottie_analysis, height=550)
-
         # ---- LOAD LOTTIE ----
         lottie_analysis = load_lottiefile("analysis.json")
 
