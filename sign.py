@@ -1,7 +1,6 @@
 import streamlit as st
 import random
 import time
-import cv2
 import matplotlib.pyplot as plt
 import json
 from streamlit_lottie import st_lottie
